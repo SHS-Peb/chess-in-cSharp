@@ -3,34 +3,40 @@
 class Program
 {
     static void Main(string[] args)
-{
-    string[,] board = new string[8, 8];
-
-    // Set up black pieces
-    board[0, 0] = "♜"; board[0, 1] = "♞"; board[0, 2] = "♝"; board[0, 3] = "♛";
-    board[0, 4] = "♚"; board[0, 5] = "♝"; board[0, 6] = "♞"; board[0, 7] = "♜";
-    for (int col = 0; col < 8; col++) board[1, col] = "♟";
-
-    // Set up empty spaces
-    for (int row = 2; row <= 5; row++)
-        for (int col = 0; col < 8; col++)
-            board[row, col] = " . ";
-
-    // Set up white pieces
-    for (int col = 0; col < 8; col++) board[6, col] = "♙";
-    board[7, 0] = "♖"; board[7, 1] = "♘"; board[7, 2] = "♗"; board[7, 3] = "♕";
-    board[7, 4] = "♔"; board[7, 5] = "♗"; board[7, 6] = "♘"; board[7, 7] = "♖";
-
-    // Print the board to the console
-    for (int row = 0; row < 8; row++)
     {
+        Piece[,] board = new Piece[8, 8];
+
+        // Place black pawns
         for (int col = 0; col < 8; col++)
         {
-            Console.Write(board[row, col] + " ");
+            board[1, col] = new Pawn(PieceColor.Black);
         }
-        Console.WriteLine();
+
+        // Place white pawns
+        for (int col = 0; col < 8; col++)
+        {
+            board[6, col] = new Pawn(PieceColor.White);
+        }
+
+        // Place black rooks
+        board[0, 0] = new Rook(PieceColor.Black);
+        board[0, 7] = new Rook(PieceColor.Black);
+
+        // Place white rooks
+        board[7, 0] = new Rook(PieceColor.White);
+        board[7, 7] = new Rook(PieceColor.White);
+
+        // Print the board
+        for (int row = 0; row < 8; row++)
+        {
+            for (int col = 0; col < 8; col++)
+            {
+                if (board[row, col] == null)
+                    Console.Write(". ");
+                else
+                    Console.Write(board[row, col].GetSymbol() + " ");
+            }
+            Console.WriteLine();
+        }
     }
 }
-
-}
-
